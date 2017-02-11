@@ -2,11 +2,28 @@
 <html>
 	<head>
 		<script>
-		var object = {};
-		var xxx = document.querySelector('xxx');
-		xxx.on.click = function(){
-			alert('hello');
+		var app = {};
+		app.localStorage = {
+			
+		};
+		
+		function createElement(a){
+			return new Promise(reject, resolve){
+				if(a == 1){
+					resolve('ok');
+				}else{
+					reject('error');
+				}
+			}
 		}
+		
+		createElement(2)
+		then(function(data){
+			console.log(data);
+		})
+		catch(function(err){
+			console.log(err);
+		})
 		</script>
 	</head>
 	
