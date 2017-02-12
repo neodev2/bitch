@@ -11,6 +11,8 @@
 		<div id="controls">
 			<a href="https://github.com/neodev2/neodev2.github.io">Github</a>
 			
+			<button onclick="updateDataLabels();">update</button>
+			
 			<input id="input_tagName" type="text" placeholder="tagName">
 			<input id="input_innerHtml" type="text" placeholder="innerHtml">
 		</div>
@@ -18,13 +20,15 @@
 		<div id="editElementCont">
 			<div>
 				<input class="id" type="text" placeholder="id">
+				<button class="sumbit_id">id</button>
 			</div>
 			<div>
-				<input class="class" type="text" placeholder="class">
+				<input class="className" type="text" placeholder="className">
+				<button class="sumbit_className">class</button>
 			</div>
 			<div>
-				<textarea class="innerHtml" placeholder="innerHtml"></textarea>
-				<button class="sumbit_innerHtml">innerHtml</button>
+				<textarea class="innerHTML" placeholder="innerHTML"></textarea>
+				<button class="sumbit_innerHTML">innerHTML</button>
 			</div>
 			<div>
 				<input class="src" type="text" placeholder="src">

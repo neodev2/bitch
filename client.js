@@ -19,16 +19,14 @@ window.onload = function(){
 		}
 		
 		
+		var xType = ['id', 'className', 'innerHTML', 'src'];
 		
-		editElementCont.querySelector('.innerHtml').value = elem.innerHTML;
-		editElementCont.querySelector('.src').value       = elem.src;
-		
-		
-		editElementCont.querySelector('.sumbit_innerHtml').onclick = function(){
-			elem.innerHTML = editElementCont.querySelector('.innerHtml').value;
-		}
-		editElementCont.querySelector('.sumbit_src').onclick = function(){
-			elem.src = editElementCont.querySelector('.src').value;
+		for(let i=0; i<xType.length; i++){
+			editElementCont.querySelector('.'+xType[i]).value = elem[xType[i]];
+			
+			editElementCont.querySelector('.sumbit_'+xType[i]).onclick = function(){
+				elem[xType[i]] = editElementCont.querySelector('.'+xType[i]).value;
+			}
 		}
 		
 	}

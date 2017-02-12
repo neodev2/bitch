@@ -19,21 +19,33 @@ body {
 
 #editElementCont {
 	display: none;
-    position: fixed;
-    z-index: 99999999999999;
-    left: 50%;
-    width: 210px;
-    transform: translateX(-50%);
-    box-shadow: 0 0 1px black;
+	position: fixed;
+	z-index: 99999999999999;
+	left: 50%;
+	padding: 7px 11px 13px;
+	width: 210px;
+	transform: translateX(-50%);
+	box-shadow: 0 0 1px black;
+	background: rgba(255, 255, 255, 0.93);
 }
 #editElementCont > div {
     
 }
-#editElementCont > div > input {
-    display: block;
-    width: 100%;
+#editElementCont > div:last-child {
+    margin-top: 11px;
 }
-
+#editElementCont > div > input,
+#editElementCont > div > textarea {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 4px 0;
+	width: 74%;
+	height: 15px;
+}
+#editElementCont > div > button {
+	display: inline-block;
+	width: 21%;
+}
 
 
 
@@ -46,12 +58,14 @@ body {
     position: fixed;
 }
 #labels > div > div {
-    display: inline-block;
-    vertical-align: top;
+    display: table-cell;
+    border-style: solid;
+    border-color: white;
+    border-width: 0;
     font-size: 8px;
 }
 #labels > div > div+div {
-    margin-left: 2px;
+    border-width: 0 0 0 2px;
 }
 
 
@@ -64,8 +78,6 @@ body {
 }
 
 #layout * {
-	margin: 8px;
-	border: 1px solid #adadad;
 	padding: 8px;
-	border-radius: 2px;
+	box-shadow: 0 0 1px 0px #adadad;
 }
