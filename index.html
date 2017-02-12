@@ -10,20 +10,25 @@
 			var input = document.querySelector('#input');
 			
 	
-			function createElement(tagName, targetElem){
+			function createElement(targetElem, tagName, innerHtml){
 				return new Promise(function(reject, resolve){
 					
 					if(window['HTML'+capitalize(tagName)+'Element']){
 						
-						var tokId = 'id'+Date.now();
-						
-						var newElem = document.createElement(tagName);
-						newElem.id = tokId;
+						var 
+						tokId             = 'id'+Date.now(),
+						newElem           = document.createElement(tagName);
+						newElem.id        = tokId;
+						newElem.innerHTML = innerHtml;
 						targetElem.appendChild(newElem);
 						
 						resolve({'success': 'element created'});
 						
-						app[tokId] = tagName;
+						app[tokId] = {
+							tokId    : tokId,
+							tagName  : tagName,
+							innerHtml: innerHtml
+						};
 						
 					}else{
 						reject({'error': 'invalid tag'});
@@ -41,7 +46,7 @@
 					var tagName = that.value;
 					var targetElem = document.querySelector('app');
 					
-					createElement(tagName, targetElem)
+					createElement(targetElem, tagName, innerHtml)
 					.then(function(data){
 						console.log(data);
 					})
