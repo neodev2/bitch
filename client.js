@@ -18,11 +18,17 @@ window.onload = function(){
 			editElementCont.style.display = 'none';
 		}
 		
-		editElementCont.querySelector('.sumbit_src').onclick = function(){
-			elem.src = editElementCont.querySelector('.src').value;
-		}
+		
+		
+		editElementCont.querySelector('.innerHtml').value = elem.innerHTML;
+		editElementCont.querySelector('.src').value       = elem.src;
+		
+		
 		editElementCont.querySelector('.sumbit_innerHtml').onclick = function(){
 			elem.innerHTML = editElementCont.querySelector('.innerHtml').value;
+		}
+		editElementCont.querySelector('.sumbit_src').onclick = function(){
+			elem.src = editElementCont.querySelector('.src').value;
 		}
 		
 	}
