@@ -14,11 +14,17 @@
 				return new Promise(function(reject, resolve){
 					
 					if(window['HTML'+capitalize(tagName)+'Element']){
+						
+						var tokId = 'id'+Date.now();
+						
 						var newElem = document.createElement(tagName);
+						newElem.id = tokId;
 						targetElem.appendChild(newElem);
+						
 						resolve({'success': 'element created'});
 						
-						app['id'+Date.now()] = tagName;
+						app[tokId] = tagName;
+						
 					}else{
 						reject({'error': 'invalid tag'});
 					}
