@@ -7,10 +7,13 @@
 			
 			app = {};
 			
-			var input_tagName = document.querySelector('#input_tagName');
-			var input_innerHtml = document.querySelector('#input_innerHtml');
+			var 
+			appElem         = document.querySelector('app'),
+			input_tagName   = document.querySelector('#input_tagName'),
+			input_innerHtml = document.querySelector('#input_innerHtml');
 			
-	
+			
+			
 			function createElement(targetElem, tagName, innerHtml){
 				return new Promise(function(reject, resolve){
 					
@@ -38,6 +41,7 @@
 				})
 			}
 			
+			
 			input_tagName.onkeydown = function(e){
 				
 				var that = this;
@@ -45,7 +49,7 @@
 				if(e.keyCode == 13){
 					
 					var 
-					targetElem = document.querySelector('app'),
+					targetElem = appElem,
 					tagName    = input_tagName.value,
 					innerHtml  = input_innerHtml.value;
 					
