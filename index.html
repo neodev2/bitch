@@ -2,48 +2,54 @@
 <html>
 	<head>
 		<script>
-		var input = document.querySelector('#input');
-		
-		var app = {};
-		app.localStorage = {
+		window.onload = function(){
 			
-		};
-
-		function createElement(tagName, targetElem){
-			return new Promise(function(reject, resolve){
-				//if(tagName && targetElem){
-				if(window['HTML'+capitalize(tagName)+'Element']){
-					var newElem = document.createElement(tagName);
-					targetElem.appendChild(newElem);
-					resolve('ok');
-				}else{
-					reject('invalid tag');
-				}
-			})
-		}
-		
-		input.onkeydown = function(e){
 			
-			var that = this;
+			var input = document.querySelector('#input');
 			
-			if(e.keyCode == 13){
+			var app = {};
+			app.localStorage = {
 				
-				createElement(that.value, document.body)
-				.then(function(data){
-					console.log(data);
+			};
+	
+			function createElement(tagName, targetElem){
+				return new Promise(function(reject, resolve){
+					//if(tagName && targetElem){
+					if(window['HTML'+capitalize(tagName)+'Element']){
+						var newElem = document.createElement(tagName);
+						targetElem.appendChild(newElem);
+						resolve('ok');
+					}else{
+						reject('invalid tag');
+					}
 				})
-				.catch(function(err){
-					console.log(err);
-				})
-				
 			}
-		};
-		
-		
+			
+			input.onkeydown = function(e){
+				
+				var that = this;
+				
+				if(e.keyCode == 13){
+					
+					createElement(that.value, document.body)
+					.then(function(data){
+						console.log(data);
+					})
+					.catch(function(err){
+						console.log(err);
+					})
+					
+				}
+			};
+			
+			
+		}
 		</script>
 	</head>
 	
 	<body>
+		
+		<a href="https://github.com/neodev2/neodev2.github.io">Github</a>
 		
 		<controls>
 			<input id="input">
