@@ -1,0 +1,71 @@
+html {
+	box-shadow: none !important;
+}
+
+body {
+	margin: 0;
+	box-shadow: none !important;
+}
+
+#controls {
+    position: fixed;
+    z-index: 99999999999;
+    left: 0;
+    bottom: 0;
+}
+
+
+
+
+#editElementCont {
+	display: none;
+    position: fixed;
+    z-index: 99999999999999;
+    left: 50%;
+    width: 210px;
+    transform: translateX(-50%);
+    box-shadow: 0 0 1px black;
+}
+#editElementCont > div {
+    
+}
+#editElementCont > div > input {
+    display: block;
+    width: 100%;
+}
+
+
+
+
+
+
+#labels {
+    
+}
+#labels > div {
+    position: fixed;
+}
+#labels > div > div {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 8px;
+}
+#labels > div > div+div {
+    margin-left: 2px;
+}
+
+
+
+
+
+
+#layout {
+	border: 1px solid #adadad;
+}
+
+#layout * {
+	margin: 8px;
+	border: 1px solid #adadad;
+	padding: 8px;
+	border-radius: 2px;
+}

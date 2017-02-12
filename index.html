@@ -1,89 +1,43 @@
 <!doctype html>
 <html>
 	<head>
+		<link rel="stylesheet" href="style.css">
 		<script src="include.js"></script>
-		<script>
-		window.onload = function(){
-			
-			app = {};
-			
-			var 
-			appElem         = document.querySelector('app'),
-			input_tagName   = document.querySelector('#input_tagName'),
-			input_innerHtml = document.querySelector('#input_innerHtml');
-			
-			
-			
-			function createElement(targetElem, tagName, innerHtml){
-				return new Promise(function(reject, resolve){
-					
-					if(window['HTML'+capitalize(tagName)+'Element']){
-						
-						var 
-						tokId             = 'id'+Date.now(),
-						newElem           = document.createElement(tagName);
-						newElem.id        = tokId;
-						newElem.innerHTML = innerHtml;
-						targetElem.appendChild(newElem);
-						
-						resolve({'success': 'element created'});
-						
-						app[tokId] = {
-							tokId    : tokId,
-							tagName  : tagName,
-							innerHtml: innerHtml
-						};
-						
-					}else{
-						reject({'error': 'invalid tag'});
-					}
-					
-				})
-			}
-			
-			//function moveElement(){
-				document.onmousemove = function(e){
-					console.log(e.target);
-				}
-			//}
-			
-			
-			
-			input_tagName.onkeydown = function(e){
-				
-				if(e.keyCode == 13){
-					
-					var 
-					targetElem = appElem,
-					tagName    = input_tagName.value,
-					innerHtml  = input_innerHtml.value;
-					
-					createElement(targetElem, tagName, innerHtml)
-					.then(function(data){
-						console.log(data);
-					})
-					.catch(function(err){
-						console.log(err);
-					})
-					
-				}
-			};
-			
-			
-		}
-		</script>
+		<script src="client.js"></script>
 	</head>
 	
 	<body>
 		
-		<a href="https://github.com/neodev2/neodev2.github.io">Github</a>
-		
-		<controls>
+		<div id="controls">
+			<a href="https://github.com/neodev2/neodev2.github.io">Github</a>
+			
 			<input id="input_tagName" type="text" placeholder="tagName">
 			<input id="input_innerHtml" type="text" placeholder="innerHtml">
-		</controls>
+		</div>
 		
-		<app></app>
+		<div id="editElementCont">
+			<div>
+				<input class="id" type="text" placeholder="id">
+			</div>
+			<div>
+				<input class="class" type="text" placeholder="class">
+			</div>
+			<div>
+				<textarea class="innerHtml" placeholder="innerHtml"></textarea>
+				<button class="sumbit_innerHtml">innerHtml</button>
+			</div>
+			<div>
+				<input class="src" type="text" placeholder="src">
+				<button class="sumbit_src">src</button>
+			</div>
+			<div>
+				<button class="close">close</button>
+			</div>
+		</div>
+		
+		<div id="labels"></div>
+		
+		<div id="layout"></div>
 		
 	</body>
 </html>
