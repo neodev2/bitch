@@ -15,14 +15,15 @@
 	
 			function createElement(tagName, targetElem){
 				return new Promise(function(reject, resolve){
-					//if(tagName && targetElem){
+					
 					if(window['HTML'+capitalize(tagName)+'Element']){
 						var newElem = document.createElement(tagName);
 						targetElem.appendChild(newElem);
-						resolve('ok');
+						resolve({'success': 'element created'});
 					}else{
-						reject('invalid tag');
+						reject({'error': 'invalid tag'});
 					}
+					
 				})
 			}
 			
@@ -32,7 +33,10 @@
 				
 				if(e.keyCode == 13){
 					
-					createElement(that.value, document.body)
+					var tagName = that.value;
+					var targetElem = document.querySelector('#app');
+					
+					createElement(tagName, targetElem)
 					.then(function(data){
 						console.log(data);
 					})
@@ -60,3 +64,70 @@
 		
 	</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
