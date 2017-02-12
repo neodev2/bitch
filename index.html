@@ -2,34 +2,54 @@
 <html>
 	<head>
 		<script>
+		var input = document.querySelector('#input');
+		
 		var app = {};
 		app.localStorage = {
 			
 		};
-		
-		function createElement(a){
-			return new Promise(reject, resolve){
-				if(a == 1){
+
+		function createElement(tagName, targetElem){
+			return new Promise(function(reject, resolve){
+				//if(tagName && targetElem){
+				if(window['HTML'+capitalize(tagName)+'Element']){
+					var newElem = document.createElement(tagName);
+					targetElem.appendChild(newElem);
 					resolve('ok');
 				}else{
-					reject('error');
+					reject('invalid tag');
 				}
-			}
+			})
 		}
 		
-		createElement(2)
-		then(function(data){
-			console.log(data);
-		})
-		catch(function(err){
-			console.log(err);
-		})
+		input.onkeydown = function(e){
+			
+			var that = this;
+			
+			if(e.keyCode == 13){
+				
+				createElement(that.value, document.body)
+				.then(function(data){
+					console.log(data);
+				})
+				.catch(function(err){
+					console.log(err);
+				})
+				
+			}
+		};
+		
+		
 		</script>
 	</head>
 	
 	<body>
 		
-		<xxx>xxx</xxx>
+		<controls>
+			<input id="input">
+		</controls>
+		
+		<app></app>
 		
 	</body>
 </html>
