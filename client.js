@@ -19,7 +19,7 @@ window.onload = function(){
 		}
 		
 		
-		var xType = ['id', 'className', 'innerHTML', 'src'];
+		var xType = ['id', 'className', 'innerHTML', 'value', 'src'];
 		
 		for(let i=0; i<xType.length; i++){
 			editElementCont.querySelector('.'+xType[i]).value = elem[xType[i]];

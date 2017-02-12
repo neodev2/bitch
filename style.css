@@ -13,6 +13,12 @@ body {
     left: 0;
     bottom: 0;
 }
+#controls input {
+    display: inline-block;
+    border: 1px solid #b1b1b1;
+    padding: 3px 6px;
+    border-radius: 2px;
+}
 
 
 
@@ -22,7 +28,7 @@ body {
 	position: fixed;
 	z-index: 99999999999999;
 	left: 50%;
-	padding: 7px 11px 13px;
+	padding: 7px 11px 9px;
 	width: 210px;
 	transform: translateX(-50%);
 	box-shadow: 0 0 1px black;
@@ -38,13 +44,14 @@ body {
 #editElementCont > div > textarea {
 	display: inline-block;
 	vertical-align: middle;
-	margin: 4px 0;
-	width: 74%;
-	height: 15px;
+	margin: 2px 0;
+	width: 77%;
+	height: 14px;
+	/* border: 1px solid #cacaca; */
 }
 #editElementCont > div > button {
 	display: inline-block;
-	width: 21%;
+	width: 20%;
 }
 
 
@@ -63,6 +70,8 @@ body {
     border-color: white;
     border-width: 0;
     font-size: 8px;
+    font-weight: bold;
+    color: #2940ff;
 }
 #labels > div > div+div {
     border-width: 0 0 0 2px;
@@ -78,6 +87,5 @@ body {
 }
 
 #layout * {
-	padding: 8px;
 	box-shadow: 0 0 1px 0px #adadad;
 }
