@@ -7,7 +7,8 @@
 			
 			app = {};
 			
-			var input = document.querySelector('#input');
+			var input_tagName = document.querySelector('#input_tagName');
+			var input_innerHtml = document.querySelector('#input_innerHtml');
 			
 	
 			function createElement(targetElem, tagName, innerHtml){
@@ -37,14 +38,16 @@
 				})
 			}
 			
-			input.onkeydown = function(e){
+			input_tagName.onkeydown = function(e){
 				
 				var that = this;
 				
 				if(e.keyCode == 13){
 					
-					var tagName = that.value;
-					var targetElem = document.querySelector('app');
+					var 
+					targetElem = document.querySelector('app'),
+					tagName    = input_tagName.value,
+					innerHtml  = input_innerHtml.value;
 					
 					createElement(targetElem, tagName, innerHtml)
 					.then(function(data){
@@ -67,7 +70,8 @@
 		<a href="https://github.com/neodev2/neodev2.github.io">Github</a>
 		
 		<controls>
-			<input id="input">
+			<input id="tagName" type="text" placeholder="tagName">
+			<input id="innerHtml" type="text" placeholder="innerHtml">
 		</controls>
 		
 		<app></app>
