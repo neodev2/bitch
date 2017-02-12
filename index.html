@@ -9,9 +9,6 @@
 			var input = document.querySelector('#input');
 			
 			var app = {};
-			app.localStorage = {
-				
-			};
 	
 			function createElement(tagName, targetElem){
 				return new Promise(function(reject, resolve){
@@ -20,6 +17,8 @@
 						var newElem = document.createElement(tagName);
 						targetElem.appendChild(newElem);
 						resolve({'success': 'element created'});
+						
+						app['id'+Date.now()] = tagName;
 					}else{
 						reject({'error': 'invalid tag'});
 					}
