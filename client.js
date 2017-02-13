@@ -6,76 +6,88 @@ window.onload = function(){
 	
 	var 
 	input_tagName   = document.querySelector('#input_tagName'),
-	input_innerHtml = document.querySelector('#input_innerHtml'),
 	editElementCont = document.querySelector('#editElementCont'),
 	layout          = document.querySelector('#layout');
 	
 	
-	function editElement(elem){
+	function editElement(slaveElem){
+		var masterElem = document.querySelector('[data-labelmaster='+slaveElem.attributes['data-labelslave'].value+']');
+		
 		editElementCont.style.display = 'block';
 		
 		editElementCont.querySelector('.close').onclick = function(){
 			editElementCont.style.display = 'none';
 		}
 		
+		editElementCont.querySelector('.delete').onclick = function(){
+			let array = masterElem.querySelectorAll('[data-labelmaster]');
+			//console.log(array);
+			for(let i=0; i<array.length; i++){
+				masterChildValue = array[i].attributes['data-labelmaster'].value;
+				slaveChildValue  = document.querySelector('[data-labelslave='+masterChildValue+']');
+				slaveChildValue.remove();
+			}
+			
+			slaveElem.remove();
+			masterElem.remove();
+		}
 		
-		var xType = ['id', 'className', 'innerHTML', 'value', 'src'];
+		
+		var xType = ['id', 'className', 'innerHTML', 'value', 'src', 'href'];
 		
 		for(let i=0; i<xType.length; i++){
-			editElementCont.querySelector('.'+xType[i]).value = elem[xType[i]];
+			editElementCont.querySelector('.'+xType[i]).value = masterElem[xType[i]];
 			
 			editElementCont.querySelector('.sumbit_'+xType[i]).onclick = function(){
-				elem[xType[i]] = editElementCont.querySelector('.'+xType[i]).value;
+				masterElem[xType[i]] = editElementCont.querySelector('.'+xType[i]).value;
+				//updateDataLabels();
 			}
 		}
 		
 	}
 	
-	function createElement(targetElem, tagName, innerHtml){
+	function createElement(targetElem, tagName){
 		
 		var tokId = 'id'+Date.now();
 		
 		var 
-		newElem           = document.createElement(tagName);
-		newElem.innerHTML = innerHtml;
+		newElem = document.createElement(tagName);
+		if(/^(ul|ol)$/i.test(tagName)){
+			newElem.innerHTML = '<li>XXX</li>';
+		}
+		else if(/^(div|h1|h2|h3|h4|h5|h6|p|b|strong|span|i|small|article|aside|footer|header|main|nav|section)$/i.test(tagName)){
+			newElem.innerHTML = 'XXX';
+		}
+		else if(/^(a)$/i.test(tagName)){
+			newElem.href      = 'XXX';
+			newElem.innerHTML = 'XXX';
+		}
+		newElem.setAttribute('data-labelmaster', tokId);
 		targetElem.appendChild(newElem);
-		
-		newElem.setAttribute('data-labelMaster', tokId);
 		
 		
 		var xxx1 = document.createElement('div');
 		var xxx2 = document.createElement('div');
-		xxx1.setAttribute('data-labelSlave', tokId);
+		xxx1.setAttribute('data-labelslave', tokId);
 		xxx1.addEventListener('click', function(){
-			var masterElem = document.querySelector('[data-labelMaster='+this.attributes['data-labelslave'].value+']');
-			editElement(masterElem);
+			editElement(this);
 		}, false);
-		xxx2.innerHTML = tagName;
+		xxx2.innerHTML = newElem.tagName;
 		xxx1.appendChild(xxx2);
 		document.querySelector('#labels').appendChild(xxx1);
-		updateDataLabels();
+		//updateDataLabels();
 	}
 	
 	function goCreate(){
 		var 
 		targetElem = layout,
-		tagName    = input_tagName.value,
-		innerHtml  = input_innerHtml.value;
+		tagName    = input_tagName.value;
 		
-		createElement(targetElem, tagName, innerHtml);
+		createElement(targetElem, tagName);
 	}
 	
 	
 	input_tagName.onkeydown = function(e){
-		
-		if(e.keyCode == 13){
-			
-			goCreate();
-			
-		}
-	}
-	
-	input_innerHtml.onkeydown = function(e){
 		
 		if(e.keyCode == 13){
 			
@@ -142,28 +154,32 @@ window.onload = function(){
 		
 		
 		if(a != b){
-			if(b.tagName != 'INPUT' && /*cmdDown*/ b.parentElement.attributes['data-labelslave']){
-				console.log('children');
-				b = document.querySelector('[data-labelMaster='+b.parentElement.attributes['data-labelslave'].value+']');
-				b.appendChild(a);
-			}
-			else if(b == document.documentElement){
-				console.log('html');
-			}
-			else if(b == document.body){
-				console.log('body');
-			}
-			else if(b.id == 'layout'){
-				console.log('layout');
-			}
-			else{
-				b.parentNode.insertBefore(a, b);
+			if(!a.parentElement.attributes['data-labelslave']){
+				if(b.tagName != 'INPUT' && /*cmdDown*/ b.parentElement.attributes['data-labelslave']){
+					console.log('children');
+					b = document.querySelector('[data-labelmaster='+b.parentElement.attributes['data-labelslave'].value+']');
+					b.appendChild(a);
+				}
+				else if(b == document.documentElement){
+					console.log('html');
+				}
+				else if(b == document.body){
+					console.log('body');
+				}
+				else if(b.id == 'layout'){
+					console.log('layout');
+				}
+				else{
+					b.parentNode.insertBefore(a, b);
+				}
+			}else{
+				console.log('slave');
 			}
 		}else{
 			//console.log('itself');
 		}
 		
-		updateDataLabels();
+		//updateDataLabels();
 		
 	}
 	
@@ -190,14 +206,70 @@ window.onload = function(){
 	
 	
 	
+	
+	
+	
+	
+	
+// select the target node
+var target = document.getElementById('layout');
+ 
+// create an observer instance
+var observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    //console.log(mutation.type);
+    updateDataLabels()
+  });    
+});
+ 
+// configuration of the observer:
+var config = {
+	attributes: true,
+	childList: true,
+	characterData: true,
+	subtree: true
+};
+ 
+// pass in the target node, as well as the observer options
+observer.observe(target, config);
+ 
+// later, you can stop observing
+//observer.disconnect();
+	
+	
+	
+	
+	
+	
+	
 }
 
 
 
 function updateDataLabels(){
-	var xxx = document.querySelectorAll('[data-labelSlave]');
+	var xxx = document.querySelectorAll('[data-labelslave]');
 	for(let i=0; i<xxx.length; i++){
-		xxx[i].style.left = document.querySelector('[data-labelMaster='+xxx[i].attributes['data-labelslave'].value+']').offsetLeft+'px';
-		xxx[i].style.top  = document.querySelector('[data-labelMaster='+xxx[i].attributes['data-labelslave'].value+']').offsetTop +'px';
+		xxx[i].style.left = document.querySelector('[data-labelmaster='+xxx[i].attributes['data-labelslave'].value+']').offsetLeft+'px';
+		xxx[i].style.top  = document.querySelector('[data-labelmaster='+xxx[i].attributes['data-labelslave'].value+']').offsetTop +'px';
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

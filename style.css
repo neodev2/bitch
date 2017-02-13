@@ -40,6 +40,9 @@ body {
 #editElementCont > div:last-child {
     margin-top: 11px;
 }
+#editElementCont > div:last-child button {
+    width: auto;
+}
 #editElementCont > div > input,
 #editElementCont > div > textarea {
 	display: inline-block;
@@ -71,7 +74,7 @@ body {
     border-width: 0;
     font-size: 8px;
     font-weight: bold;
-    color: #2940ff;
+    color: #ff6200;
 }
 #labels > div > div+div {
     border-width: 0 0 0 2px;
@@ -83,9 +86,12 @@ body {
 
 
 #layout {
-	border: 1px solid #adadad;
+	box-shadow: 0 0 1px 0px #adadad;
 }
 
 #layout * {
 	box-shadow: 0 0 1px 0px #adadad;
+}
+#layout div {
+	padding-top: 8px;
 }
