@@ -2,12 +2,47 @@ window.onload = function(){
 	
 	app = {};
 	
+	var xType = ['tagName', 'id', 'className', 'innerHTML', 'value', 'src', 'href'];
 	
 	
 	var 
 	input_tagName   = document.querySelector('#input_tagName'),
 	editElementCont = document.querySelector('#editElementCont'),
 	layout          = document.querySelector('#layout');
+	
+	
+	
+	
+	for(let i=0; i<xType.length; i++){
+		if(xType[i] == 'innerHTML'){
+			editElementCont.innerHTML +=
+			'<div>'+
+				'<textarea class="'+xType[i]+'" placeholder="'+xType[i]+'"></textarea>'+
+				'<button class="sumbit_'+xType[i]+'">'+xType[i]+'</button>'+
+			'</div>';
+		}else{
+			editElementCont.innerHTML +=
+			'<div>'+
+				'<input class="'+xType[i]+'" type="text" placeholder="'+xType[i]+'">'+
+				'<button class="sumbit_'+xType[i]+'" '+((i==0)?'disabled':'')+'>'+xType[i]+'</button>'+
+			'</div>';
+		}
+	}
+	
+	editElementCont.innerHTML +=
+	'<div>'+
+		'<button class="close">close</button>'+
+		'<button class="delete">delete</button>'+
+	'</div>';
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	function editElement(slaveElem){
@@ -33,7 +68,6 @@ window.onload = function(){
 		}
 		
 		
-		var xType = ['id', 'className', 'innerHTML', 'value', 'src', 'href'];
 		
 		for(let i=0; i<xType.length; i++){
 			editElementCont.querySelector('.'+xType[i]).value = masterElem[xType[i]];
@@ -55,7 +89,7 @@ window.onload = function(){
 		if(/^(ul|ol)$/i.test(tagName)){
 			newElem.innerHTML = 'XXX';
 		}
-		else if(/^(div|h1|h2|h3|h4|h5|h6|p|b|strong|span|i|small|article|aside|footer|header|main|nav|section)$/i.test(tagName)){
+		else if(/^(li|div|h1|h2|h3|h4|h5|h6|p|b|strong|span|i|small|article|aside|footer|header|main|nav|section)$/i.test(tagName)){
 			newElem.innerHTML = 'XXX';
 		}
 		else if(/^(a)$/i.test(tagName)){
@@ -263,6 +297,11 @@ function updateDataLabels(){
 	}
 }
 
+
+function outputHTML(){
+	var html = document.querySelector('#layout').innerHTML;
+	console.log(html.replace(/ data-labelmaster="id[0-9]+"/g, ''));
+}
 
 
 
