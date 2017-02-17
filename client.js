@@ -33,6 +33,7 @@ window.onload = function(){
 	'<div>'+
 		'<button class="close">close</button>'+
 		'<button class="delete">delete</button>'+
+		'<button class="clone">clone</button>'+
 	'</div>';
 	
 	
@@ -67,6 +68,53 @@ window.onload = function(){
 			masterElem.remove();
 		}
 		
+		editElementCont.querySelector('.clone').onclick = function(){
+			
+			var masterElemCloned = masterElem.cloneNode(true);
+			masterElem.parentElement.appendChild(masterElemCloned);
+			
+			var slaveElemCloned = slaveElem.cloneNode(true);
+			slaveElem.parentElement.appendChild(slaveElemCloned);
+			
+			
+			let array = masterElemCloned.querySelectorAll('[data-labelmaster]');
+			//console.log(array);
+			let i=0;
+			function blabla(){
+				if(i<array.length){
+					let masterValue = array[i].attributes['data-labelmaster'].value;
+					let slave = document.querySelector('[data-labelslave='+masterValue+']');
+					
+					var slaveCloned = slave.cloneNode(true);
+					slave.parentElement.appendChild(slaveCloned);
+					
+					setTimeout(function(){
+						let newTokId = 'id'+Date.now();
+						array[i].setAttribute('data-labelmaster', newTokId);
+						slaveCloned.setAttribute('data-labelslave', newTokId);
+						slaveCloned.addEventListener('click', function(){
+							editElement(this);
+						}, false);
+						
+						i++;
+						blabla();
+					}, 16);
+					
+				}else{
+					setTimeout(function(){
+						let newTokId = 'id'+Date.now();
+						masterElemCloned.setAttribute('data-labelmaster', newTokId);
+						slaveElemCloned.setAttribute('data-labelslave', newTokId);
+						slaveElemCloned.addEventListener('click', function(){
+							editElement(this);
+						}, false);
+					}, 16);
+				}
+			}
+			blabla();
+				
+		}
+		
 		
 		
 		for(let i=0; i<xType.length; i++){
@@ -82,34 +130,42 @@ window.onload = function(){
 	
 	function createElement(targetElem, tagName){
 		
-		var tokId = 'id'+Date.now();
+		let timeout1 = setTimeout(function(){
+			var tokId = 'id'+Date.now();
+			
+			var 
+			newElem = document.createElement(tagName);
+			newElem.setAttribute('data-labelmaster', tokId);
+			targetElem.appendChild(newElem);
+			
+			
+			var xxx1 = document.createElement('div');
+			var xxx2 = document.createElement('div');
+			xxx1.setAttribute('data-labelslave', tokId);
+			xxx1.addEventListener('click', function(){
+				editElement(this);
+			}, false);
+			xxx2.innerHTML = newElem.tagName;
+			xxx1.appendChild(xxx2);
+			document.querySelector('#labels').appendChild(xxx1);
+			//updateDataLabels();
+			
+			
+			if(/^(ul|ol)$/i.test(tagName)){
+				createElement(newElem, 'li');
+			}
+			else if(/^(li|h1|h2|h3|h4|h5|h6|p|b|strong|span|i|small)$/i.test(tagName)){
+				newElem.innerHTML = 'text';
+			}
+			else if(/^(div|article|aside|footer|header|main|nav|section)$/i.test(tagName)){
+				newElem.innerHTML = '';
+			}
+			else if(/^(a)$/i.test(tagName)){
+				newElem.href      = '#';
+				newElem.innerHTML = 'text';
+			}
+		}, 32);
 		
-		var 
-		newElem = document.createElement(tagName);
-		if(/^(ul|ol)$/i.test(tagName)){
-			newElem.innerHTML = 'XXX';
-		}
-		else if(/^(li|div|h1|h2|h3|h4|h5|h6|p|b|strong|span|i|small|article|aside|footer|header|main|nav|section)$/i.test(tagName)){
-			newElem.innerHTML = 'XXX';
-		}
-		else if(/^(a)$/i.test(tagName)){
-			newElem.href      = 'XXX';
-			newElem.innerHTML = 'XXX';
-		}
-		newElem.setAttribute('data-labelmaster', tokId);
-		targetElem.appendChild(newElem);
-		
-		
-		var xxx1 = document.createElement('div');
-		var xxx2 = document.createElement('div');
-		xxx1.setAttribute('data-labelslave', tokId);
-		xxx1.addEventListener('click', function(){
-			editElement(this);
-		}, false);
-		xxx2.innerHTML = newElem.tagName;
-		xxx1.appendChild(xxx2);
-		document.querySelector('#labels').appendChild(xxx1);
-		//updateDataLabels();
 	}
 	
 	function goCreate(){
